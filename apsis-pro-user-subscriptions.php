@@ -44,7 +44,7 @@ class APSIS_Pro_User_Subscriptions {
 	 * Check if APSIS Pro for WP plugin is activated, display error message otherwise.
 	 */
 	public static function child_plugin_has_parent_plugin() {
-		if ( is_admin() && current_user_can( 'activate_plugins' ) &&  !is_plugin_active( 'APSIS-Pro-for-WP/apsis-pro-for-wp.php' ) ) {
+		if ( is_admin() && current_user_can( 'activate_plugins' ) &&  !class_exists( 'APSIS_Pro_For_WP' ) ) {
 			add_action( 'admin_notices', array( __CLASS__, 'child_plugin_notice' ) );
 
 			deactivate_plugins( plugin_basename( __FILE__ ) );
@@ -54,7 +54,7 @@ class APSIS_Pro_User_Subscriptions {
 			}
 		}
 
-		if( is_plugin_active( plugin_basename( __FILE__ ) ) ) {
+		if( class_exists( 'APSIS_Pro_For_WP' ) ) {
 			require_once ABSPATH . '/wp-content/plugins/APSIS-Pro-for-WP/apsis-pro-for-wp.php';
 		}
 
