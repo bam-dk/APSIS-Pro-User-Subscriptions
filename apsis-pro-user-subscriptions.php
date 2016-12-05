@@ -213,7 +213,11 @@ class APSIS_Pro_User_Subscriptions {
 		$demo_data_fields = self::get_demographic_data_fields();
 		if ( $demo_data_fields !== -1 || ! empty( $demo_data_fields ) ) :
 			foreach ( $demo_data_fields as $demo_data_field ) :
-				$current_option = $options[$demo_data_field];
+				if( ! empty( $options[$demo_data_field] ) ) :
+					$current_option = $options[$demo_data_field];
+				else:
+					$current_option = '';
+				endif;
 				?>
 				<p>
 					<label style="width: 140px;display: inline-block;"><?php echo $demo_data_field ?></label>
@@ -618,9 +622,7 @@ class APSIS_Pro_User_Subscriptions {
 				$demo_data_fields = $response_array['Result']['Demographics'];
 				$return_array = array();
 				foreach ( $demo_data_fields as $demo_data_field ) :
-					if ( $demo_data_field['Visible'] == 1 ) :
-						$return_array[] = $demo_data_field['Key'];
-					endif;
+					$return_array[] = $demo_data_field['Key'];
 				endforeach;
 				return $return_array;
 			endif;
@@ -638,6 +640,11 @@ class APSIS_Pro_User_Subscriptions {
 		$select = "SELECT distinct $wpdb->usermeta.meta_key FROM $wpdb->usermeta";
 		$usermeta = $wpdb->get_results($select);
 		$return_data = '';
+		if ( $current_option === '' || $current_option === 'none') :
+			$return_data .= '<option value="none" selected="selected">' . __( 'None', 'apsispro' ) . '</option>';
+		else :
+			$return_data .= '<option value="none">' . __( 'None', 'apsispro' ) . '</option>';
+		endif;
 		foreach ( $usermeta as $usermeta_item ) :
 			if ( $current_option === $usermeta_item->meta_key ) :
 				$selected = ' selected="selected"';
