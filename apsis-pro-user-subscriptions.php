@@ -818,7 +818,7 @@ class APSIS_Pro_User_Subscriptions {
 			$https = false;
 		endif;
 
-		$response = wp_remote_post( APSIS_Pro_For_WP::get_api_url( $https, $options['apsispro_input_api_key'], $options['apsispro_select_api_url'] ) . '/v1/subscribers/mailinglist/' . $mailinglist_id . '1111/create?updateIfExists=true', $args );
+		$response = wp_remote_post( APSIS_Pro_For_WP::get_api_url( $https, $options['apsispro_input_api_key'], $options['apsispro_select_api_url'] ) . '/v1/subscribers/mailinglist/' . $mailinglist_id . '/create?updateIfExists=true', $args );
 
 		return $response;
 
