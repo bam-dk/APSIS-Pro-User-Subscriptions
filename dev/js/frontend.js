@@ -12,13 +12,13 @@ jQuery(document).ready(function ($) {
 
         var listElement = $currentForm.find('.apsispro-us-signup-mailinglist-id');
         if (listElement.length > 0) {
-            registerSubscriber('register', $currentForm, listElement.val(), email, name);
+            registerSubscriber('register', $currentForm, listElement.val(), email, name, false);
         }
         else {
             var noListID = true;
             $currentForm.find('.apsispro-us-signup-mailinglists-id').each(function () {
                 if ($(this).is(':checked')) {
-                    registerSubscriber('register', $currentForm, $(this).val(), email, name);
+                    registerSubscriber('register', $currentForm, $(this).val(), email, name, false);
                     noListID = false;
                 }
                 else {
@@ -26,12 +26,12 @@ jQuery(document).ready(function ($) {
                 }
             });
             if ( noListID ) {
-                if ( ajax_object.default_list !== '' ) {
-                    registerSubscriber('register', $currentForm, ajax_object.default_list, email, name);
+                if ( apsispro_us_ajax_object.default_list !== '' ) {
+                    registerSubscriber('register', $currentForm, apsispro_us_ajax_object.default_list, email, name, true);
                 }
             } else {
-                if ( ajax_object.default_subscriber_list !== '' ) {
-                    registerSubscriber('default-sub', $currentForm, ajax_object.default_subscriber_list, email, name);
+                if ( apsispro_us_ajax_object.default_subscriber_list !== '' ) {
+                    registerSubscriber('default-sub', $currentForm, apsispro_us_ajax_object.default_subscriber_list, email, name, true);
                 }
             }
         }
@@ -43,7 +43,7 @@ jQuery(document).ready(function ($) {
     /*
      Register subscriber to mailinglist with AJAX call
      */
-    function registerSubscriber(mode, $currentForm, listid, email, name) {
+    function registerSubscriber(mode, $currentForm, listid, email, name, reload) {
         var data = {
             'action': 'apsispro_us_action',
             'listid': listid,
@@ -52,19 +52,20 @@ jQuery(document).ready(function ($) {
             'mode': mode
         };
 
-        $.post(ajax_object.ajax_url, data, function (response) {
+        $.post(apsispro_us_ajax_object.ajax_url, data, function (response) {
 
             if (response !== undefined || response !== -1) {
                 var obj = jQuery.parseJSON(response);
                 if (obj['Code'] === 1) { //Subscription successful
                     $currentForm.next('.apsispro-us-signup-response').text('');
+                    window.location.reload();
                 } else if (obj['Message'].indexOf('is not a valid e-mail address') > -1) { //E-mail address invalid
-                    $currentForm.next('.apsispro-us-signup-response').text(ajax_object.error_msg_email);
+                    $currentForm.next('.apsispro-us-signup-response').text(apsispro_us_ajax_object.error_msg_email);
                 } else { //Error
-                    $currentForm.next('.apsispro-us-signup-response').text(ajax_object.error_msg_standard);
+                    $currentForm.next('.apsispro-us-signup-response').text(apsispro_us_ajax_object.error_msg_standard);
                 }
             } else { //Error
-                $currentForm.next('.apsispro-us-signup-response').text(ajax_object.error_msg_standard);
+                $currentForm.next('.apsispro-us-signup-response').text(apsispro_us_ajax_object.error_msg_standard);
             }
 
         });
@@ -81,19 +82,19 @@ jQuery(document).ready(function ($) {
             'mode': 'remove'
         };
 
-        $.post(ajax_object.ajax_url, data, function (response) {
+        $.post(apsispro_us_ajax_object.ajax_url, data, function (response) {
 
             if (response !== undefined || response !== -1) {
                 var obj = jQuery.parseJSON(response);
                 if (obj['Code'] === 1) { //Removal successful
                     $currentForm.next('.apsispro-us-signup-response').text('');
                 } else if (obj['Message'].indexOf('is not a valid e-mail address') > -1) { //E-mail address invalid
-                    $currentForm.next('.apsispro-us-signup-response').text(ajax_object.error_msg_email);
+                    $currentForm.next('.apsispro-us-signup-response').text(apsispro_us_ajax_object.error_msg_email);
                 } else { //Error
-                    $currentForm.next('.apsispro-us-signup-response').text(ajax_object.error_msg_standard);
+                    $currentForm.next('.apsispro-us-signup-response').text(apsispro_us_ajax_object.error_msg_standard);
                 }
             } else { //Error
-                $currentForm.next('.apsispro-us-signup-response').text(ajax_object.error_msg_standard);
+                $currentForm.next('.apsispro-us-signup-response').text(apsispro_us_ajax_object.error_msg_standard);
             }
             
         });

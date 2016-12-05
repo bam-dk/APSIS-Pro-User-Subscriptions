@@ -109,7 +109,7 @@ class APSIS_Pro_User_Subscriptions {
 			$default_subscriber_list = '';
 		endif;
 
-		wp_localize_script( 'apsispro-us-frontend', 'ajax_object',
+		wp_localize_script( 'apsispro-us-frontend', 'apsispro_us_ajax_object',
 			array(
 				'ajax_url'           		=> admin_url( 'admin-ajax.php' ),
 				'error_msg_standard' 		=> __( 'An error occurred, please try again later.', 'apsispro' ),
