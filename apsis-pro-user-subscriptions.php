@@ -209,6 +209,9 @@ class APSIS_Pro_User_Subscriptions {
 	 */
 	public static function apsispro_us_input_demographic_data_fields_render() {
 
+		global $wpdb;
+		$select = "SELECT distinct $wpdb->usermeta.meta_key FROM $wpdb->usermeta";
+		$usermeta = $wpdb->get_results($select);
 		$options = get_option( 'apsispro_us_demo_settings' );
 		$demo_data_fields = self::get_demographic_data_fields();
 		if ( $demo_data_fields !== -1 || ! empty( $demo_data_fields ) ) :
@@ -222,7 +225,7 @@ class APSIS_Pro_User_Subscriptions {
 				<p>
 					<label style="width: 140px;display: inline-block;"><?php echo $demo_data_field ?></label>
 					<select class="apsispro_us_<?php echo $demo_data_field; ?>" name="apsispro_us_demo_settings[<?php echo $demo_data_field; ?>]">
-						<?php echo self::get_user_meta_key($current_option); ?>
+						<?php echo self::get_user_meta_key( $current_option, $usermeta ); ?>
 					</select>
 				</p>
 			<?php endforeach;
@@ -635,10 +638,7 @@ class APSIS_Pro_User_Subscriptions {
 	 *
 	 * @param String $current_option Selected option in settings
 	 */
-	public static function get_user_meta_key( $current_option ) {
-		global $wpdb;
-		$select = "SELECT distinct $wpdb->usermeta.meta_key FROM $wpdb->usermeta";
-		$usermeta = $wpdb->get_results($select);
+	public static function get_user_meta_key( $current_option, $usermeta ) {
 		$return_data = '';
 		if ( $current_option === '' || $current_option === 'none') :
 			$return_data .= '<option value="none" selected="selected">' . __( 'None', 'apsispro' ) . '</option>';
