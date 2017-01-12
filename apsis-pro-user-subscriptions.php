@@ -218,7 +218,7 @@ class APSIS_Pro_User_Subscriptions {
 			foreach ( $demo_data_fields as $demo_data_field ) : ?>
 				<p>
 					<label style="width: 140px;display: inline-block;"><?php echo $demo_data_field ?></label>
-					<input type="text" class="apsispro_us_<?php echo $demo_data_field; ?>" name="apsispro_us_demo_settings[<?php echo $demo_data_field; ?>]" value="<?php echo $options[$demo_data_field]; ?>">
+					<input type="text" class="apsispro_us_<?php echo $demo_data_field; ?>" name="apsispro_us_demo_settings[<?php echo $demo_data_field; ?>]" value="<?php echo $options[$demo_data_field]; ?>" placeholder="<?php _e( 'user meta key', 'apsispro' ) ?>">
 				</p>
 			<?php endforeach;
 		endif;
