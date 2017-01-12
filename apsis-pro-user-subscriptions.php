@@ -427,6 +427,8 @@ class APSIS_Pro_User_Subscriptions {
 				else:
 					print( $response['body'] );
 				endif;
+			else :
+				print( '{"Code":1,"Message":"User has other role"}' );
 			endif;
 
 			wp_die();
@@ -539,6 +541,7 @@ class APSIS_Pro_User_Subscriptions {
 						   value=""/>
 					<input type="submit" value="<?php _e( 'Subscribe', 'apsispro' ); ?>" name="apsispro-us-signup-button"
 						   class="apsispro-us-signup-button">
+					<div class="apsispro-us-spinner" style="background: url('<?php echo admin_url() ?>/images/loading.gif') no-repeat; height: 16px; width: 16px; display: none; margin-left: 6px;"></div>
 				</form>
 				<p class="apsispro-us-signup-response"></p>
 			</div>
