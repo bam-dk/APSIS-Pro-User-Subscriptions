@@ -232,7 +232,7 @@ class APSIS_Pro_User_Subscriptions
                     <label style="width: 140px;display: inline-block;"><?php echo $demo_data_field ?></label>
                     <input type="text" class="apsispro_us_<?php echo $demo_data_field; ?>"
                            name="apsispro_us_demo_settings[<?php echo $demo_data_field; ?>]"
-                           value="<?php echo $options[$demo_data_field]; ?>"
+                           value="<?php if ( isset( $options[$demo_data_field] ) ) : echo $options[$demo_data_field]; else : echo ''; endif; ?>"
                            placeholder="<?php _e('user meta key', 'apsispro') ?>">
                 </p>
             <?php endforeach;
@@ -657,7 +657,9 @@ class APSIS_Pro_User_Subscriptions
                 $demo_data_fields = $response_array['Result']['Demographics'];
                 $return_array = array();
                 foreach ($demo_data_fields as $demo_data_field) :
-                    $return_array[] = $demo_data_field['Key'];
+                    if( $demo_data_field['Key'] !== '' && $demo_data_field['Visible'] ) :
+                        $return_array[] = $demo_data_field['Key'];
+                    endif;
                 endforeach;
                 return $return_array;
             endif;
@@ -806,8 +808,10 @@ class APSIS_Pro_User_Subscriptions
         $demo_options = get_option('apsispro_us_demo_settings');
         $demo_array = array();
         foreach ($demo_options as $demo_option => $value) :
-            $demo_array[] = array('Key' => $demo_option,
-                'Value' => get_user_meta($user_id, $value, true));
+            if ( $value !== '' ) :
+                $demo_array[] = array('Key' => $demo_option,
+                    'Value' => get_user_meta($user_id, $value, true));
+            endif;
         endforeach;
 
         $form_data = array(
