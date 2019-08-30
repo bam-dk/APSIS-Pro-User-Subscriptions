@@ -229,8 +229,8 @@ class APSIS_Pro_User_Subscriptions
         if ($demo_data_fields !== -1 || !empty($demo_data_fields)) :
             foreach ($demo_data_fields as $demo_data_field) : ?>
                 <p>
-                    <label style="width: 140px;display: inline-block;"><?php echo $demo_data_field ?></label>
-                    <input type="text" class="apsispro_us_<?php echo $demo_data_field; ?>"
+                    <label style="width: 240px;display: inline-block;"><?php echo $demo_data_field ?></label>
+                    <input style="width: 240px; type="text" class="apsispro_us_<?php echo $demo_data_field; ?>"
                            name="apsispro_us_demo_settings[<?php echo $demo_data_field; ?>]"
                            value="<?php if ( isset( $options[$demo_data_field] ) ) : echo $options[$demo_data_field]; else : echo ''; endif; ?>"
                            placeholder="<?php _e('user meta key', 'apsispro') ?>">
