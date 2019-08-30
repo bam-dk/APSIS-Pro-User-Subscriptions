@@ -37,7 +37,7 @@ class APSIS_Pro_User_Subscriptions {
 		add_action( 'set_user_role', array( __CLASS__, 'apsispro_us_role_change'), 20, 2 );
 		add_action( 'add_user_role', array( __CLASS__, 'apsispro_us_role_change'), 30, 2 );
 
-
+		
 	}
 
 	/**
@@ -217,8 +217,8 @@ class APSIS_Pro_User_Subscriptions {
 				if ( $demo_data_fields !== -1 || ! empty( $demo_data_fields ) ) :
 					foreach ( $demo_data_fields as $demo_data_field ) : ?>
 					<p>
-						<label style="width: 240px;display: inline-block;"><?php echo $demo_data_field ?></label>
-						<input type="text" class="apsispro_us_<?php echo $demo_data_field; ?>" name="apsispro_us_demo_settings[<?php echo $demo_data_field; ?>]" value="<?php echo $options[$demo_data_field]; ?>" placeholder="<?php _e( 'user meta key', 'apsispro' ) ?>" style="width: 240px;">
+						<label style="width: 140px;display: inline-block;"><?php echo $demo_data_field ?></label>
+						<input type="text" class="apsispro_us_<?php echo $demo_data_field; ?>" name="apsispro_us_demo_settings[<?php echo $demo_data_field; ?>]" value="<?php echo $options[$demo_data_field]; ?>" placeholder="<?php _e( 'user meta key', 'apsispro' ) ?>">
 					</p>
 				<?php endforeach;
 			endif;
