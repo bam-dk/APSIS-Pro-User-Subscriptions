@@ -2,7 +2,7 @@
 /*
 Plugin Name: APSIS Pro User Subscriptions
 Description: Plugin for mapping APSIS Pro Demographic Data Fields and to make it possible to change a user's APSIS Pro subscriptions.
-Version: 1.0
+Version: 1.0.1
 Author: iqq
 Author URI: http://www.iqq.se/
 License: GPLv2 or later
