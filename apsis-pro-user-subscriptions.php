@@ -807,12 +807,14 @@ class APSIS_Pro_User_Subscriptions
 
         $demo_options = get_option('apsispro_us_demo_settings');
         $demo_array = array();
+        if (is_array($demo_options) || is_object($demo_options)) {
         foreach ($demo_options as $demo_option => $value) :
             if ( $value !== '' ) :
                 $demo_array[] = array('Key' => $demo_option,
                     'Value' => get_user_meta($user_id, $value, true));
             endif;
         endforeach;
+    }
 
         $form_data = array(
             'Email' => $email,
