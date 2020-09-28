@@ -765,7 +765,11 @@ class APSIS_Pro_User_Subscriptions
         if ($subscriber_mailinglists !== -1) :
             foreach ($subscriber_mailinglists as $mailinglist) :
                 $response = self::create_update_apsispro_user($user_id, $email, $name, $mailinglist['Id']);
-
+                // make sure variable is array
+                if (is_object($response)) {
+                    $response = (array)$response;
+                }
+                // print error
                 if (is_wp_error($response)):
                     print($response['body']);
                 endif;
